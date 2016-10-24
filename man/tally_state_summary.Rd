@@ -2,9 +2,12 @@
 % Please edit documentation in R/tally_state_summary.R
 \name{tally_state_summary}
 \alias{tally_state_summary}
-\title{Summarize overlaps in a given state}
+\title{Summarize overlaps for all states}
 \usage{
 tally_state_summary(tally_dir, out_file = NULL)
+}
+\arguments{
+\item{tally_dir}{directory containing the state files}
 }
 \description{
 In a given state, tally the number of bins which overlap.
