@@ -1,7 +1,8 @@
 #' State colors
+#'
 #' @format List of 12 colors
 #' @details Produced by: \code{
-#' c(
+#' statecolors <- c(
 #'   "tssactive" = "#FF0000",
 #'   "tss" = "#FF4500",
 #'   "txn" = "#008000",
@@ -17,6 +18,6 @@
 #'   "polycomb" = "#808080",
 #'   "low" = "#FFFFFF"
 #' )
-#' save(statecolors, file = "data/statecolors.rda")
+#' save(statecolors, file = "data/statecolors.RData")
 #' }
 "statecolors"
