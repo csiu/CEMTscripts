@@ -2,12 +2,13 @@
 #'
 #' In a given state, tally the number of bins which overlap
 #'
+#' @import readr
 #' @param input_file
 #'
 tally_state <- function(input_file){
   require(dplyr)
   ## The number of bins which agree among n samples
-  dd <- readr::read_tsv(input_file,
+  dd <- read_tsv(input_file,
                  col_names = c("chrom", "start", "end",
                                "samples", "label", "bins"),
                  col_types = cols(
@@ -32,7 +33,7 @@ tally_state <- function(input_file){
 #'
 #' @param tally_dir directory containing the state files
 #' @export
-tally_state_summary <- function(tally_dir, out_file=NULL){
+tally_state_summary <- function(tally_dir, out_file=NULL, verbose=FALSE){
   require(dplyr)
 
   # Input files
@@ -41,6 +42,7 @@ tally_state_summary <- function(tally_dir, out_file=NULL){
   # Generate summary data
   dat <- NULL
   for (s in 1L:length(input_files)){
+    if (verbose) message(paste("Loading state:", s))
     input_file <-
       file.path(tally_dir,
                 grep(sprintf("[\\.U]%s\\.", s), input_files, value=T)

@@ -3,3 +3,4 @@
 export(tally_state_summary)
 export(visualize_state_summary)
 import(dplyr)
+import(readr)

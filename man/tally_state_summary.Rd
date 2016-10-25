@@ -4,7 +4,7 @@
 \alias{tally_state_summary}
 \title{Summarize overlaps for all states}
 \usage{
-tally_state_summary(tally_dir, out_file = NULL)
+tally_state_summary(tally_dir, out_file = NULL, verbose = FALSE)
 }
 \arguments{
 \item{tally_dir}{directory containing the state files}
