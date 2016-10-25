@@ -8,10 +8,15 @@ tally_state_summary(tally_dir, out_file = NULL, verbose = FALSE)
 }
 \arguments{
 \item{tally_dir}{directory containing the state files}
+
+\item{out_file}{when the output filename is specified,
+the output will be saved to this file}
+
+\item{verbose}{boolean; print messages?}
 }
 \description{
 In a given state, tally the number of bins which overlap.
 Assumes input files end in "bed" and
-a state i.e. state 1 is named ".U1." or ".1."
+a state e.g. state 1's filename is named "*.U1.*" or "*.1.*"
 }
 

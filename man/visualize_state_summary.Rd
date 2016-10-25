@@ -7,10 +7,12 @@
 visualize_state_summary(input, statepalette = NULL, facet_wrap = FALSE)
 }
 \arguments{
-\item{input}{output of \code{tally_state_summary()}}
+\item{input}{output of \code{tally_state_summary()}
+i.e. dataframe where column 1 is state, and the remaining
+column are the number of bins which overlap 1, 2, ... samples.}
 
 \item{statepalette}{character list where each element is a color and
-the name of each element is the state number}
+the name of each element is a \code{state} level.}
 
 \item{facet_wrap}{boolean}
 }

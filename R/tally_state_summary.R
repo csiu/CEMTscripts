@@ -3,8 +3,11 @@
 #' In a given state, tally the number of bins which overlap
 #'
 #' @import readr
-#' @param input_file
-#'
+#' @param input_file TSV file with 6 columns + no header:
+#'                   chrom, start, stop,
+#'                   number of samples, sample representation
+#'                   e.g. 0010 (where 0=absent; 1=present),
+#'                   number of bins in region i.e. (stop-start)/200bp.
 tally_state <- function(input_file){
   require(dplyr)
   ## The number of bins which agree among n samples
@@ -29,9 +32,12 @@ tally_state <- function(input_file){
 #'
 #' In a given state, tally the number of bins which overlap.
 #' Assumes input files end in "bed" and
-#' a state i.e. state 1 is named ".U1." or ".1."
+#' a state e.g. state 1's filename is named "*.U1.*" or "*.1.*"
 #'
 #' @param tally_dir directory containing the state files
+#' @param out_file when the output filename is specified,
+#'                 the output will be saved to this file
+#' @param verbose boolean; print messages?
 #' @export
 tally_state_summary <- function(tally_dir, out_file=NULL, verbose=FALSE){
   require(dplyr)
@@ -64,8 +70,10 @@ tally_state_summary <- function(tally_dir, out_file=NULL, verbose=FALSE){
 #' Plot output of \code{tally_state_summary()} into a barchart
 #'
 #' @param input output of \code{tally_state_summary()}
+#'              i.e. dataframe where column 1 is state, and the remaining
+#'              column are the number of bins which overlap 1, 2, ... samples.
 #' @param statepalette character list where each element is a color and
-#'                     the name of each element is the state number
+#'                     the name of each element is a \code{state} level.
 #' @param facet_wrap boolean
 #' @import dplyr
 #' @export
@@ -94,4 +102,3 @@ visualize_state_summary <- function(input, statepalette=NULL, facet_wrap=FALSE){
     plt
   }
 }
-
