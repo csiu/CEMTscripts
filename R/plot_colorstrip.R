@@ -1,14 +1,34 @@
-#' Function to add color to facet strip
+#' Add color to ggplot's facet strip.background
 #'
-#' @param d the data
-#' @param p the base plot
+#' @param d dataframe of the data used to create \code{p}.
+#'          There is at least 3 columns: x, y, and "\code{state}"
+#'          \code{state} is used to determine the number of strips
+#'          and should be equal to the number of facets of \code{p}.
+#' @param p ggplot's base plot
 #' @param statepalette character list where each element is a color and
-#'                     the name of each element is the state number
+#'                     the name of each element is a \code{state} level.
+#' @export
+#' @examples
+#' library(ggplot2)
+#' library(dplyr)
+#' d <- iris %>%
+#'   mutate(
+#'     state = Species,
+#'     samples = Sepal.Length,
+#'     bins = Sepal.Width)
+#' p <- d %>%
+#'   ggplot(aes(x=samples, y=bins)) +
+#'   geom_point() +
+#'   facet_wrap(~state)
+#' statepalette <- c("red", "yellow", "blue")
+#' statepalette <- setNames(statepalette, levels(d$state))
+#' plot_colorstrip(d, p, statepalette)
 plot_colorstrip <- function(d, p, statepalette){
   # Create new strips of color (to be updated)
   dummy <- p
   dummy$layers <- NULL
-  dummy <- dummy +
+  dummy <-
+    dummy +
     geom_rect(data=d, xmin=-Inf, ymin=-Inf, xmax=Inf, ymax=Inf,
               aes(fill = as.character(state))) +
     theme_minimal() +
