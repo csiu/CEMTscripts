@@ -239,3 +239,51 @@ sample_concordance_viz <- function(sampleconcordance, type="max"){
     ylab("Distance between samples") +
     theme(axis.text.x = element_text(angle=90, vjust=1, hjust=.5))
 }
+
+#  ------------------------------------------------------------------------
+#' Sample concordance visualization (heatmap)
+#'
+#' Visualize sample concordance in terms of a heatmap
+#'
+#' @param sampleconcordance the output of \code{sample_concordance()}
+#' @param type One of "\code{max}" (default) or "\code{avg}";
+#'             see \code{state_distance()} for details.
+#'             This parameter chooses which distance metric to use.
+#' @param fun_scale function to scale matrix;
+#'                  use "\code{NULL}" for no scaling
+#'                  (i.e use the raw sample distances.
+#'                  See details.
+#' @param ... additional arguments to \code{pheatmap(...)}
+#'
+#' @details
+#'   The value 15181508 is the number of 200 bp bins as segmented by ChromHMM.
+#'   x/15181508 accounts for the total distance (i.e. error) between samples.
+#'   1-(x/15181508) transforms the distance to a similarity measure.
+#'   For scaling the distance between 0 and 1, use
+#'   \code{function(x){(x-min(x,na.rm=T)) / (max(x,na.rm=T)-min(x,na.rm=T))}}
+#' @export
+sample_concordance_vizH <- function(sampleconcordance, type="max",
+                                    fun_scale = function(x){1-(x/15181508)},
+                                    ...){
+  if (type=="avg") dmetric<-"dist_avg" else dmetric<-"dist_max"
+
+  ## Create matrix of pairwise symmetric distances
+  mat <-
+    rbind(
+      sampleconcordance,
+      dplyr::rename(sampleconcordance, s1=s2, s2=s1)
+    ) %>%
+    select_("s1", "s2", dist=dmetric) %>%
+    tidyr::spread(s2, dist)
+  rownames(mat) <- NULL
+  mat <-
+    as.data.frame(mat) %>%
+    tibble::column_to_rownames(var = "s1")
+
+  ## Scale matrix
+  if (!is.null(fun_scale)) mat<-fun_scale(mat)
+
+  ## Create heatmap
+  pheatmap::pheatmap(mat, ...)
+
+}
