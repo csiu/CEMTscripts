@@ -58,6 +58,8 @@ chromhmm_comparestates <- function(model_file, reference_file){
 #'          Used to label the states of the reference model if the reference
 #'          model is Roadmap's 15 state core model "\code(roadmap5marks)"
 #'          or 18 state expanded model "\code(roadmap6marks)"
+#' @param ...
+#'          Additional argument to \code{pheatmap(...)}
 #' @export
 chromhmm_comparestates_vizH <- function(chromhmmcomparestates, ref=NULL, ...){
   if (ref=="roadmap5marks") {
