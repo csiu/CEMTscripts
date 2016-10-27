@@ -14,6 +14,7 @@
 #'    \item{\code{bins_atleast1}}
 #'    \item{\code{proportion}}
 #'   }
+#' @export
 tally_state_consensusprob <- function(tallystatesummary){
   ## Reformat
   d <-
