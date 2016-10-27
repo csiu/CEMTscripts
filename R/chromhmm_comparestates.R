@@ -1,15 +1,3 @@
-#' Split histone emission probabilities by state
-#' @param emissions dataframe produced by
-#'                  \code{chromhmm_loadmodel(...)$emissions}
-#' @examples
-#' library(dplyr)
-#' system.file("extdata", "model_18_core_K27ac.txt", package = "CEMTscripts") %>%
-#'  {chromhmm_loadmodel(.)$emissions} %>%
-#'  split_by_stateprofile()
-split_by_stateprofile <- function(emissions){
-  split(setNames(emissions$prob, emissions$markname), emissions$state)
-}
-
 #' Spread emissions
 #' @param emissions dataframe produced by
 #'                  \code{chromhmm_loadmodel(...)$emissions}
@@ -67,10 +55,6 @@ rlabel <- c("1_TssA", "2_TssFlnk", "3_TssFlnkU", "4_TssFlnkD",
 ## Load models
 model <- chromhmm_loadmodel(model_file)
 model_roadmap <- chromhmm_loadmodel(roadmap_model_file)
-
-# ## Split each state
-# m <- split_by_stateprofile(model$emissions)
-# r <- split_by_stateprofile(model_roadmap$emissions)
 
 ## Spread emissions
 M <- chromhmm_spreademissions(model$emissions)
