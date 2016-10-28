@@ -222,10 +222,23 @@ sample_concordance_summary <- function(sampleconcordance){
 #' Sample concordance visualization
 #'
 #' @param sampleconcordance the output of \code{sample_concordance()}
+#' @param type See \code{state_distance()}
+#' @param fun_scale Function to scale y values.
+#'                  See \code{sample_concordance_vizH()}.
+#'                  Specify "\code{NULL}" for no scaling
+#' @param fun_scale.label y-axis label associated with \code{fun_scale}
 #' @export
-sample_concordance_viz <- function(sampleconcordance, type="max"){
+sample_concordance_viz <- function(sampleconcordance, type="max",
+                                   fun_scale = function(x){1-(x/15181508)},
+                                   fun_scale.label = "Similarity"){
   require(ggplot2)
   if (type=="avg") dmetric<-"dist_avg" else dmetric<-"dist_max"
+
+  if (!is.null(fun_scale)) {
+    sampleconcordance[[dmetric]] <- fun_scale(sampleconcordance[[dmetric]])
+  } else if (is.null(fun_scale) && fun_scale.label == "Similarity") {
+    fun_scale.label <- "Distance"
+  }
 
   sampleconcordance %>%
     mutate(pair = paste(s1, s2, sep="-")) %>%
@@ -236,7 +249,7 @@ sample_concordance_viz <- function(sampleconcordance, type="max"){
     ) +
     geom_point() +
     xlab("Pair of samples") +
-    ylab("Distance between samples") +
+    ylab(fun_scale.label) +
     theme(axis.text.x = element_text(angle=90, vjust=1, hjust=.5))
 }
 

@@ -4,10 +4,20 @@
 \alias{sample_concordance_viz}
 \title{Sample concordance visualization}
 \usage{
-sample_concordance_viz(sampleconcordance, type = "max")
+sample_concordance_viz(sampleconcordance, type = "max",
+  fun_scale = function(x) {     1 - (x/15181508) },
+  fun_scale.label = "Similarity")
 }
 \arguments{
 \item{sampleconcordance}{the output of \code{sample_concordance()}}
+
+\item{type}{See \code{state_distance()}}
+
+\item{fun_scale}{Function to scale y values.
+See \code{sample_concordance_vizH()}.
+Specify "\code{NULL}" for no scaling}
+
+\item{fun_scale.label}{y-axis label associated with \code{fun_scale}}
 }
 \description{
 Sample concordance visualization
