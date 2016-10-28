@@ -18,9 +18,14 @@
 #' }
 #' @examples
 #' model_file <-
+#'   system.file("extdata", "model_15_coreMarks.txt",
+#'               package="CEMTscripts")
+#' model_file <-
 #'   system.file("extdata", "model_18_core_K27ac.txt",
 #'               package="CEMTscripts")
+#'
 #' chromhmm_loadmodel(model_file)
+#'
 #' @import readr
 #' @export
 chromhmm_loadmodel <- function(model_file, histone_order=NULL){
