@@ -7,11 +7,7 @@
 tally_state(input_file)
 }
 \arguments{
-\item{input_file}{TSV file with 6 columns + no header:
-chrom, start, stop,
-number of samples, sample representation
-e.g. 0010 (where 0=absent; 1=present),
-number of bins in region i.e. (stop-start)/200bp.}
+\item{input_file}{Format is described in \code{load_tallystate()}}
 }
 \description{
 In a given state, tally the number of bins which overlap
