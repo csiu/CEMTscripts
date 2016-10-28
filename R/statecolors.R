@@ -22,3 +22,15 @@
 #'
 #' @source \url{http://egg2.wustl.edu/roadmap/web_portal/chr_state_learning.html}
 "statecolors"
+
+#  ------------------------------------------------------------------------
+#' Make statepalette
+#' @param x List of states. Valid states are described in \code{?statecolors}
+#' @details
+#'   For use as \code{statepalette} in \code{tally_state_summary_viz()}
+#' @export
+statecolors_makepalette <- function(x){
+  s <- statecolors[x]
+  names(s) <- 1L:length(x)
+  s
+}
