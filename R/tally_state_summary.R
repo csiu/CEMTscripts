@@ -32,7 +32,7 @@ tally_state <- function(input_file){
 #'
 #' In a given state, tally the number of bins which overlap.
 #' Assumes input files end in "bed" and
-#' a state e.g. state 1's filename is named "*.U1.*" or "*.1.*"
+#' a state e.g. state 1's filename is named "*.U1.*", "*.E1.*" *.1.*"
 #'
 #' @param tally_dir directory containing the state files
 #' @param out_file when the output filename is specified,
@@ -51,7 +51,7 @@ tally_state_summary <- function(tally_dir, out_file=NULL, verbose=FALSE){
     if (verbose) message(paste("Loading state:", s))
     input_file <-
       file.path(tally_dir,
-                grep(sprintf("[\\.U]%s\\.", s), input_files, value=T)
+                grep(sprintf("[\\.UE]%s\\.", s), input_files, value=T)
                 )
     dat <-
       rbind(

@@ -17,6 +17,6 @@ the output will be saved to this file}
 \description{
 In a given state, tally the number of bins which overlap.
 Assumes input files end in "bed" and
-a state e.g. state 1's filename is named "*.U1.*" or "*.1.*"
+a state e.g. state 1's filename is named "*.U1.*", "*.E1.*" *.1.*"
 }
 

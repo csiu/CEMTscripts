@@ -14,7 +14,7 @@ tally_state_summary_viz <- function(input, statepalette=NULL, facet_wrap=FALSE){
   require(ggplot2)
   dat <-
     input %>%
-    dplyr::mutate(state = sub("^U", "", state) %>% as.integer()) %>%
+    dplyr::mutate(state = sub("^[UE]", "", state) %>% as.integer()) %>%
     tidyr::gather(samples, bins, -state) %>%
     dplyr::mutate(samples = as.integer(samples))
 
