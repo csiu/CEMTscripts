@@ -10,7 +10,7 @@
 #' @param facet_wrap boolean
 #' @import dplyr
 #' @export
-visualize_state_summary <- function(input, statepalette=NULL, facet_wrap=FALSE){
+tally_state_summary_viz <- function(input, statepalette=NULL, facet_wrap=FALSE){
   require(ggplot2)
   dat <-
     input %>%
