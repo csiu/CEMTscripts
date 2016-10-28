@@ -28,4 +28,10 @@ Returns a list object.
 \description{
 Load ChromHMM model
 }
+\examples{
+model_file <-
+  system.file("extdata", "model_18_core_K27ac.txt",
+              package="CEMTscripts")
+chromhmm_loadmodel(model_file)
+}
 

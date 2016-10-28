@@ -7,6 +7,8 @@
 chromhmm_plt(input, type, stateorder = NULL)
 }
 \arguments{
+\item{input}{Emissions or transitions output of \code{chromhmm_loadmodel}}
+
 \item{type}{Specify what type of data the input is:
 \code{e} for emissions or
 \code{t} for transitions}

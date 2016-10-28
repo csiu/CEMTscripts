@@ -16,6 +16,11 @@
 #'  \item{"\code{transitions}"}{
 #'    for a dataframe with the transition probabilities}
 #' }
+#' @examples
+#' model_file <-
+#'   system.file("extdata", "model_18_core_K27ac.txt",
+#'               package="CEMTscripts")
+#' chromhmm_loadmodel(model_file)
 #' @import readr
 #' @export
 chromhmm_loadmodel <- function(model_file, histone_order=NULL){
@@ -190,7 +195,7 @@ chromhmm_makestateorderingfile <- function(stateorder, filename=NULL){
 
 #  ------------------------------------------------------------------------
 #' Recreate ChromHMM emissions & transitions plot
-#' @param input
+#' @param input Emissions or transitions output of \code{chromhmm_loadmodel}
 #' @param type Specify what type of data the input is:
 #'             \code{e} for emissions or
 #'             \code{t} for transitions
