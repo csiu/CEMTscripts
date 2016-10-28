@@ -216,11 +216,11 @@ chromhmm_plt <- function(input, type, stateorder=NULL){
 
   } else if (type=="t"){
     plt <-
-      ggplot(input, aes(x=from, y=to, fill=prob)) +
+      ggplot(input, aes(x=to, y=from, fill=prob)) +
       geom_tile() +
       scale_fill_continuous(low="white", high="blue") +
-      xlab("") +
-      ylab("")
+      xlab("State To") +
+      ylab("State From")
   } else {
     stop("'type' must be one of: 'e' or 't'")
   }
