@@ -3,7 +3,6 @@
 #' @param state Specify state file to be returned.
 #'              If \code{NULL} (default) is used,
 #'              all files bed files in tally_dir will be returned.
-#' @details
 getfile_tallystate <- function(tally_dir, state=NULL){
   # List of all files in tally dir
   # Grep for state of interest
