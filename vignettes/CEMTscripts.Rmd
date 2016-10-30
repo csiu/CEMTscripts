@@ -54,3 +54,9 @@ Getting epigentically marked regions:
 ```
 export(regions_get)
 ```
+
+Converting from regions to genes
+```
+export(regions_addgenes)
+export(regions_togenes)
+```
