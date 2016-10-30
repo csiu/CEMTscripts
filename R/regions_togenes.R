@@ -5,7 +5,6 @@
 #'   Format is the same as \code{regions}, but with an extra "gene_id" column.
 #'   The length of the output depends on the number of
 #'   matching regions with gene_ids.
-#' @import GenomicRanges
 regions_addgenes <- function(regions, regiontype="tss",
                             tss.upstream=2000, tss.downstream=2000){
   if (regiontype == "tss") {
@@ -13,12 +12,12 @@ regions_addgenes <- function(regions, regiontype="tss",
     gene_db <-
       GenomicRanges::promoters(
         ensemblgtf, upstream=tss.upstream, downstream=tss.downstream)
-    if (grepl("^chr", seqlevels(regions)[1]) &&
-        grepl("^(?!chr)", seqlevels(gene_db)[1], perl=T)) {
+    if (grepl("^chr", GenomeInfoDb::seqlevels(regions)[1]) &&
+        grepl("^(?!chr)", GenomeInfoDb::seqlevels(gene_db)[1], perl=T)) {
       gene_db <-
-        renameSeqlevels(
+        GenomeInfoDb::renameSeqlevels(
           gene_db,
-          sub("^", "chr\\1", seqlevels(gene_db)))
+          sub("^", "chr\\1", GenomeInfoDb::seqlevels(gene_db)))
     }
   } else {
     stop("regiontype must be one of: 'tss'")
@@ -30,8 +29,9 @@ regions_addgenes <- function(regions, regiontype="tss",
   hits <-
     GenomicRanges::findOverlaps(query=gene_db, subject=regions)
   ## Merge subject & query hits
-  dat.hits <- regions[subjectHits(hits),]
-  dat.hits$gene_id <- mcols(gene_db)[queryHits(hits),"gene_id"]
+  dat.hits <- regions[GenomicRanges::subjectHits(hits),]
+  dat.hits$gene_id <-
+    GenomicRanges::mcols(gene_db)[GenomicRanges::queryHits(hits),"gene_id"]
   dat.hits
 }
 
