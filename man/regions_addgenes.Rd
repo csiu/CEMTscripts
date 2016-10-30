@@ -12,6 +12,11 @@ regions_addgenes(regions, regiontype = "tss", tss.upstream = 2000,
 }
 \arguments{
 \item{regions}{GRanges object}
+
+\item{tss.upstream}{When \code{regiontype} is "tss", this argument is used
+to specify the upstream GenomicRanges::promoter size}
+
+\item{tss.downstream}{See \code{tss.upstream}}
 }
 \description{
 Label regions with gene ids

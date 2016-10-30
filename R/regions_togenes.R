@@ -1,6 +1,10 @@
 #' Label regions with gene ids
 #' @param regions GRanges object
 #' @param regiontype
+#' @param tss.upstream
+#'          When \code{regiontype} is "tss", this argument is used
+#'          to specify the upstream GenomicRanges::promoter size
+#' @param tss.downstream See \code{tss.upstream}
 #' @format
 #'   Format is the same as \code{regions}, but with an extra "gene_id" column.
 #'   The length of the output depends on the number of
