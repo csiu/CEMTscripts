@@ -4,7 +4,7 @@
 \alias{regions_get}
 \title{Get regions}
 \usage{
-regions_get(tally_dir, state, nsamples = "all", regex.in = "*",
+regions_get(tally_dir, state, nsamples = NULL, regex.in = "*",
   regex.notin = NULL)
 }
 \arguments{
@@ -14,7 +14,8 @@ regions_get(tally_dir, state, nsamples = "all", regex.in = "*",
 
 \item{nsamples}{Filter: How many samples must region overlap?
 Can be single element e.g. "4" or
-a numeric list e.g. "c(3, 4)"}
+a numeric list e.g. "c(3, 4)".
+Specifying \code{NULL} (default) will keep everything.}
 
 \item{regex.in}{Filter: Which samples must be in the result?
 Character length must equal to the number of samples.

@@ -6,7 +6,8 @@
 #' @param state integer; state file in \code{tally_dir} to load
 #' @param nsamples Filter: How many samples must region overlap?
 #'                 Can be single element e.g. "4" or
-#'                 a numeric list e.g. "c(3, 4)"
+#'                 a numeric list e.g. "c(3, 4)".
+#'                 Specifying \code{NULL} (default) will keep everything.
 #' @param regex.in Filter: Which samples must be in the result?
 #'                 Character length must equal to the number of samples.
 #'                 Only "0", "1", and "." characters are permitted, where
@@ -19,7 +20,7 @@
 #'                 Filter: Which samples must not be in the result?
 #'                 Requirements are the same as \code{regex.in}
 #' @export
-regions_get <- function(tally_dir, state, nsamples="all",
+regions_get <- function(tally_dir, state, nsamples=NULL,
                         regex.in="*", regex.notin=NULL){
   validate_regex <- function(regex, l){
     if (!(grepl("^[01\\.]+$", regex) && nchar(regex)==l)) {
@@ -42,7 +43,7 @@ regions_get <- function(tally_dir, state, nsamples="all",
   total_samples <- nchar(state_tally[[1,"label"]])
 
   ## Filter: How many samples in result?
-  if (!(nsamples=="all" || nsamples==total_samples)) {
+  if (!is.null(nsamples)) {
     gr <-
       gr[GenomicRanges::mcols(gr)$samples %in% nsamples]
   }
