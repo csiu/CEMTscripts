@@ -1,0 +1,56 @@
+---
+title: "List of exported functions"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Put the title of your vignette here}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+Tallying ChromHMM states across samples:
+```
+export(tally_state_summary)
+export(tally_state_summary_viz)
+export(tally_state_consensusprob)
+```
+
+Dealing with plotting & state color:
+```
+export(statecolors_makepalette)
+export(plot_colorstrip)
+```
+
+Loading ChromHMM model and crudely ordering states:
+```
+export(chromhmm_loadmodel)
+export(chromhmm_plt)
+
+export("%cor%")
+export(chromhmm_comparestates)
+export(chromhmm_comparestates_vizH)
+
+export(chromhmm_orderstates)
+export(chromhmm_makestateorderingfile)
+```
+
+## Evaluating
+Distance between sample segmentations
+```
+export(load_unionbedg)
+
+export(sample_concordance)
+export(sample_concordance_summary)
+export(sample_concordance_viz)
+export(sample_concordance_vizH)
+```
+
+Similarity of a genomic feature between different models
+```
+export(regions_binmatch)
+```
+
+## Extracting
+Getting epigentically marked regions:
+```
+export(regions_get)
+```
