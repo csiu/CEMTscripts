@@ -33,21 +33,23 @@ regions_addgenes <- function(regions, regiontype="tss",
         ensemblgtf, upstream=tss.upstream, downstream=tss.downstream)
     if (ensure_correct_chr_prefix) gene_db<-CEMTscripts:::add_chr(gene_db)
 
+    # ## Overlap genes/promoters with regions of interest
+    # GenomicRanges::subsetByOverlaps(query=gene_db, subject=regions)
+
+    ## Find overlaps
+    hits <-
+      GenomicRanges::findOverlaps(query=gene_db, subject=regions)
+    ## Merge subject & query hits
+    output <- regions[GenomicRanges::subjectHits(hits),]
+    output$gene_id <-
+      GenomicRanges::mcols(gene_db)[GenomicRanges::queryHits(hits),"gene_id"]
+
+  } else if (regiontype == "enh") {
     }
   } else {
     stop("regiontype must be one of: 'tss'")
   }
-  # ## Overlap genes/promoters with regions of interest
-  # GenomicRanges::subsetByOverlaps(query=gene_db, subject=regions)
-
-  ## Find overlaps
-  hits <-
-    GenomicRanges::findOverlaps(query=gene_db, subject=regions)
-  ## Merge subject & query hits
-  dat.hits <- regions[GenomicRanges::subjectHits(hits),]
-  dat.hits$gene_id <-
-    GenomicRanges::mcols(gene_db)[GenomicRanges::queryHits(hits),"gene_id"]
-  dat.hits
+  output
 }
 
 #  ------------------------------------------------------------------------
