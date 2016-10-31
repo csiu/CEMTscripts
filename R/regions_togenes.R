@@ -1,4 +1,6 @@
-#' Add chr
+#' Add chr prefix to GRanges object
+#'
+#' Add "chr" prefix to a GRanges object that is lacking "chr"
 add_chr <- function(gr){
   if (grepl("^(?!chr)", GenomeInfoDb::seqlevels(gr)[1], perl=T)) {
     GenomeInfoDb::renameSeqlevels(
@@ -11,15 +13,26 @@ add_chr <- function(gr){
 #' Label regions with gene ids
 #' @param regions GRanges object
 #' @param regiontype
+#'          One of "tss"  or "enh".
+#'          "tss" will make associations between regions
+#'          overlapping gene promoter neighborhoods;
+#'          "enh" will make associations between regions
+#'          upstream (i.e "precede") of genes
+#'          for both positive and negative strands
+#'          if regions strand information is unspecified.
 #' @param tss.upstream
 #'          When \code{regiontype} is "tss", this argument is used
-#'          to specify the upstream GenomicRanges::promoter size
+#'          to specify the upstream GenomicRanges::promoter size.
 #' @param tss.downstream See \code{tss.upstream}
 #' @format
-#'   Format is the same as \code{regions}, but with
-#'   at least 1 extra "gene_id" column.
+#'   GRanges object containing all columns from \code{regions}.
+#'   A "gene_id" column is also added.
 #'   The length of the output depends on the number of
-#'   matching regions with gene_ids.
+#'   regions matching with gene_ids.
+#'   For \code{regiontype="enh"},
+#'   "gene_distance" (distance between the region and the gene) and
+#'   "ensemblgtf_id" (\code{ensemblgtf} dataframe row number of gene)
+#'   columns are also added.
 #' @export
 regions_addgenes <- function(regions, regiontype="tss",
                             tss.upstream=2000, tss.downstream=2000){

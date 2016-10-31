@@ -3,10 +3,14 @@
 \name{regions_addgenes}
 \alias{regions_addgenes}
 \title{Label regions with gene ids}
-\format{Format is the same as \code{regions}, but with
-  at least 1 extra "gene_id" column.
+\format{GRanges object containing all columns from \code{regions}.
+  A "gene_id" column is also added.
   The length of the output depends on the number of
-  matching regions with gene_ids.}
+  regions matching with gene_ids.
+  For \code{regiontype="enh"},
+  "gene_distance" (distance between the region and the gene) and
+  "ensemblgtf_id" (\code{ensemblgtf} dataframe row number of gene)
+  columns are also added.}
 \usage{
 regions_addgenes(regions, regiontype = "tss", tss.upstream = 2000,
   tss.downstream = 2000)
@@ -14,8 +18,16 @@ regions_addgenes(regions, regiontype = "tss", tss.upstream = 2000,
 \arguments{
 \item{regions}{GRanges object}
 
+\item{regiontype}{One of "tss"  or "enh".
+"tss" will make associations between regions
+overlapping gene promoter neighborhoods;
+"enh" will make associations between regions
+upstream (i.e "precede") of genes
+for both positive and negative strands
+if regions strand information is unspecified.}
+
 \item{tss.upstream}{When \code{regiontype} is "tss", this argument is used
-to specify the upstream GenomicRanges::promoter size}
+to specify the upstream GenomicRanges::promoter size.}
 
 \item{tss.downstream}{See \code{tss.upstream}}
 }
