@@ -16,7 +16,8 @@ add_chr <- function(gr){
 #'          to specify the upstream GenomicRanges::promoter size
 #' @param tss.downstream See \code{tss.upstream}
 #' @format
-#'   Format is the same as \code{regions}, but with an extra "gene_id" column.
+#'   Format is the same as \code{regions}, but with
+#'   at least 1 extra "gene_id" column.
 #'   The length of the output depends on the number of
 #'   matching regions with gene_ids.
 #' @export
@@ -45,7 +46,35 @@ regions_addgenes <- function(regions, regiontype="tss",
       GenomicRanges::mcols(gene_db)[GenomicRanges::queryHits(hits),"gene_id"]
 
   } else if (regiontype == "enh") {
+    gene_db <- ensemblgtf
+    if (ensure_correct_chr_prefix) gene_db<-CEMTscripts:::add_chr(gene_db)
+
+    ## Ensure there is strand info on regions
+    if (all(GenomicRanges::strand(regions)=="*")) {
+      GenomicRanges::strand(regions) <- "+"
+      r <- regions
+      GenomicRanges::strand(regions) <- "-"
+      r <- append(r, regions)
+
+      regions <- r
+      rm(r)
     }
+
+    ## Find upstream enhancers
+    hits <-
+      GenomicRanges::precede(regions, gene_db, ignore.strand=FALSE)
+    ## Add gene id + subject (ensemblgtf) row id
+    regions$gene_id <- gene_db$gene_id[hits]
+    regions$ensemblgtf_id <- hits
+
+    ## Remove NAs
+    regions <- regions[!is.na(regions$gene_id)]
+
+    ## Add distances
+    regions$gene_distance <-
+      GenomicRanges::distance(regions, gene_db[regions$ensemblgtf_id])
+    output <- regions
+
   } else {
     stop("regiontype must be one of: 'tss'")
   }

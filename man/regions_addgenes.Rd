@@ -3,7 +3,8 @@
 \name{regions_addgenes}
 \alias{regions_addgenes}
 \title{Label regions with gene ids}
-\format{Format is the same as \code{regions}, but with an extra "gene_id" column.
+\format{Format is the same as \code{regions}, but with
+  at least 1 extra "gene_id" column.
   The length of the output depends on the number of
   matching regions with gene_ids.}
 \usage{
