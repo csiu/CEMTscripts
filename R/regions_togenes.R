@@ -59,9 +59,9 @@ regions_addgenes <- function(regions, regiontype="tss",
     hits <-
       GenomicRanges::findOverlaps(query=gene_db, subject=regions)
     ## Merge subject & query hits
-    output <- regions[GenomicRanges::subjectHits(hits),]
+    output <- regions[S4Vectors::subjectHits(hits),]
     output$gene_id <-
-      GenomicRanges::mcols(gene_db)[GenomicRanges::queryHits(hits),"gene_id"]
+      GenomicRanges::mcols(gene_db)[S4Vectors::queryHits(hits),"gene_id"]
 
   } else if (regiontype == "enh") {
     gene_db <- ensemblgtf
