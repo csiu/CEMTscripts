@@ -13,7 +13,7 @@
   columns are also added.}
 \usage{
 regions_addgenes(regions, regiontype = "tss", tss.upstream = 2000,
-  tss.downstream = 2000)
+  tss.downstream = 2000, enh.distmax = NULL)
 }
 \arguments{
 \item{regions}{GRanges object}
@@ -30,6 +30,10 @@ if regions strand information is unspecified.}
 to specify the upstream GenomicRanges::promoter size.}
 
 \item{tss.downstream}{See \code{tss.upstream}}
+
+\item{enh.distmax}{When \code{regiontype} is "enh", this argument is used
+to specify the maximum region to gene distance.
+Default (NULL) is to consider all region to gene pairings.}
 }
 \description{
 Label regions with gene ids

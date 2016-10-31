@@ -24,6 +24,10 @@ add_chr <- function(gr){
 #'          When \code{regiontype} is "tss", this argument is used
 #'          to specify the upstream GenomicRanges::promoter size.
 #' @param tss.downstream See \code{tss.upstream}
+#' @param enh.distmax
+#'          When \code{regiontype} is "enh", this argument is used
+#'          to specify the maximum region to gene distance.
+#'          Default (NULL) is to consider all region to gene pairings.
 #' @format
 #'   GRanges object containing all columns from \code{regions}.
 #'   A "gene_id" column is also added.
@@ -35,7 +39,8 @@ add_chr <- function(gr){
 #'   columns are also added.
 #' @export
 regions_addgenes <- function(regions, regiontype="tss",
-                            tss.upstream=2000, tss.downstream=2000){
+                            tss.upstream=2000, tss.downstream=2000,
+                            enh.distmax=NULL){
   ensure_correct_chr_prefix <-
     grepl("^chr", GenomeInfoDb::seqlevels(regions)[1]) &&
     grepl("^(?!chr)", GenomeInfoDb::seqlevels(ensemblgtf)[1], perl=T)
@@ -86,7 +91,11 @@ regions_addgenes <- function(regions, regiontype="tss",
     ## Add distances
     regions$gene_distance <-
       GenomicRanges::distance(regions, gene_db[regions$ensemblgtf_id])
+
     output <- regions
+    if (!is.null(enh.distmax)) {
+      output <- output[output$gene_distance<=enh.distmax]
+    }
 
   } else {
     stop("regiontype must be one of: 'tss'")
