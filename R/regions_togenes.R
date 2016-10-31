@@ -98,7 +98,7 @@ regions_addgenes <- function(regions, regiontype="tss",
     }
 
   } else {
-    stop("regiontype must be one of: 'tss'")
+    stop("regiontype must be one of: 'tss', 'enh'")
   }
   output
 }
