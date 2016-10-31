@@ -1,3 +1,13 @@
+#' Add chr
+add_chr <- function(gr){
+  if (grepl("^(?!chr)", GenomeInfoDb::seqlevels(gr)[1], perl=T)) {
+    GenomeInfoDb::renameSeqlevels(
+      gr,
+      sub("^", "chr\\1", GenomeInfoDb::seqlevels(gr)))
+  } else { gr }
+}
+
+# ------------------------------------------------------------------------
 #' Label regions with gene ids
 #' @param regions GRanges object
 #' @param regiontype
@@ -12,17 +22,17 @@
 #' @export
 regions_addgenes <- function(regions, regiontype="tss",
                             tss.upstream=2000, tss.downstream=2000){
+  ensure_correct_chr_prefix <-
+    grepl("^chr", GenomeInfoDb::seqlevels(regions)[1]) &&
+    grepl("^(?!chr)", GenomeInfoDb::seqlevels(ensemblgtf)[1], perl=T)
+
   if (regiontype == "tss") {
     ## From gene list, infer a list of promoters
     gene_db <-
       GenomicRanges::promoters(
         ensemblgtf, upstream=tss.upstream, downstream=tss.downstream)
-    if (grepl("^chr", GenomeInfoDb::seqlevels(regions)[1]) &&
-        grepl("^(?!chr)", GenomeInfoDb::seqlevels(gene_db)[1], perl=T)) {
-      gene_db <-
-        GenomeInfoDb::renameSeqlevels(
-          gene_db,
-          sub("^", "chr\\1", GenomeInfoDb::seqlevels(gene_db)))
+    if (ensure_correct_chr_prefix) gene_db<-CEMTscripts:::add_chr(gene_db)
+
     }
   } else {
     stop("regiontype must be one of: 'tss'")
