@@ -4,10 +4,15 @@
 \alias{sample_concordance_summary}
 \title{Sample concordance summary}
 \usage{
-sample_concordance_summary(sampleconcordance)
+sample_concordance_summary(sampleconcordance, use_scale = FALSE,
+  fun_scale = function(x) {     1 - (x/15181508) })
 }
 \arguments{
 \item{sampleconcordance}{the output of \code{sample_concordance()}}
+
+\item{use_scale}{Boolean; Scale the data with \code{fun_scale}}
+
+\item{fun_scale}{See \code{sample_concordance_vizH()}}
 }
 \description{
 Computes the mean, median, min, max, sd

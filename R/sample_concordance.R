@@ -203,11 +203,21 @@ sample_concordance <- function(the_samples,
 #' of the sample pairs from \code{sample_concordance()}
 #'
 #' @param sampleconcordance the output of \code{sample_concordance()}
+#' @param use_scale Boolean; Scale the data with \code{fun_scale}
+#' @param fun_scale See \code{sample_concordance_vizH()}
 #' @export
-sample_concordance_summary <- function(sampleconcordance){
+sample_concordance_summary <- function(
+  sampleconcordance, use_scale = FALSE,
+  fun_scale = function(x){1-(x/15181508)}){
+
+  ## Prepare data
+  dat <-
+    sampleconcordance %>%
+    tidyr::gather(stat, val, -starts_with("s"))
+  if (use_scale) dat<-mutate(dat, val = fun_scale(val))
+
   ## Calculate summary statistics
-  sampleconcordance %>%
-    tidyr::gather(stat, val, -starts_with("s")) %>%
+  dat %>%
     group_by(stat) %>%
     summarize(
       mean = mean(val),
