@@ -15,12 +15,13 @@
 #'    \item{\code{proportion}}
 #'   }
 #' @export
+#' @import dplyr
 tally_state_consensusprob <- function(tallystatesummary){
   ## Reformat
   d <-
     tallystatesummary %>%
     as.data.frame() %>%
-    gather(nsamples, bins, -state)
+    tidyr::gather(nsamples, bins, -state)
 
   ## Number of bins marked in at least 1 sample
   d_atleast1 <-
