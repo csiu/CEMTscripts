@@ -36,5 +36,6 @@ load_tallystate <- function(input_file){
              samples = col_integer(),
              label = col_character(),
              bins = col_integer()
-           ))
+           ),
+           progress = FALSE)
 }
