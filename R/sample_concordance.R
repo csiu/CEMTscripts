@@ -53,7 +53,8 @@ load_unionbedg <- function(filename, binsize=200){
   dat <-
     readr::read_tsv(
       filename,
-      col_types = cols(chrom = col_character())
+      col_types = cols(chrom = col_character()),
+      progress = FALSE
     ) %>%
     mutate(nbins = (end-start)/binsize)
 }
