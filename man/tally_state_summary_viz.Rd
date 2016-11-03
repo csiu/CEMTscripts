@@ -4,7 +4,8 @@
 \alias{tally_state_summary_viz}
 \title{Visualize overlaps for all states}
 \usage{
-tally_state_summary_viz(input, statepalette = NULL, facet_wrap = FALSE)
+tally_state_summary_viz(input, statepalette = NULL, facet_wrap = FALSE,
+  scale_y_log10 = FALSE)
 }
 \arguments{
 \item{input}{output of \code{tally_state_summary()}
@@ -15,6 +16,9 @@ column are the number of bins which overlap 1, 2, ... samples.}
 the name of each element is a \code{state} level.}
 
 \item{facet_wrap}{boolean}
+
+\item{scale_y_log10}{boolean; when this is TRUE, the bin counts will be
+log10 transformed and the plot will use points instead of bars.}
 }
 \description{
 Plot output of \code{tally_state_summary()} into a barchart
