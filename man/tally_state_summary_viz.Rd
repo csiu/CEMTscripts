@@ -5,7 +5,7 @@
 \title{Visualize overlaps for all states}
 \usage{
 tally_state_summary_viz(input, statepalette = NULL, facet_wrap = FALSE,
-  scale_y_log10 = FALSE)
+  scale_y_log10 = FALSE, shape = FALSE)
 }
 \arguments{
 \item{input}{output of \code{tally_state_summary()}
@@ -19,6 +19,10 @@ the name of each element is a \code{state} level.}
 
 \item{scale_y_log10}{boolean; when this is TRUE, the bin counts will be
 log10 transformed and the plot will use points instead of bars.}
+
+\item{shape}{boolean; when this is TRUE, the bin counts are
+rescaled to range 0-1 and the
+\code{scale_y_log10} argument is not used}
 }
 \description{
 Plot output of \code{tally_state_summary()} into a barchart
