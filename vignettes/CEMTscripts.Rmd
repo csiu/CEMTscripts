@@ -24,6 +24,7 @@ Loading ChromHMM model and crudely ordering states:
 ```
 export(chromhmm_loadmodel)
 export(chromhmm_plt)
+export(chromhmm_gencov)
 
 export("%cor%")
 export(chromhmm_comparestates)

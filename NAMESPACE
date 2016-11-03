@@ -3,6 +3,7 @@
 export("%cor%")
 export(chromhmm_comparestates)
 export(chromhmm_comparestates_vizH)
+export(chromhmm_gencov)
 export(chromhmm_loadmodel)
 export(chromhmm_makestateorderingfile)
 export(chromhmm_orderstates)
