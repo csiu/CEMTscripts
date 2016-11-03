@@ -42,7 +42,8 @@ tally_state_summary_viz <- function(input, statepalette=NULL,
       geom_point(size = .75) +
       geom_line() +
       scale_y_log10() +
-      ylab("")
+      ylab("") +
+      ylim(0,1)
   } else {
     plt <-
       dat %>%
