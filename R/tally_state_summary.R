@@ -20,12 +20,17 @@ tally_state <- function(input_file){
 #' a state e.g. state 1's filename is named "*.U1.*", "*.E1.*" *.1.*"
 #'
 #' @param tally_dir directory containing the state files
-#' @param out_file when the output filename is specified,
-#'                 the output will be saved to this file
 #' @param verbose boolean; print messages?
+#' @param cache
+#'          boolean; If TRUE, results will be saved to
+#'          \code{tally_dir}/tallystate_summary.txt &/or
+#'          data will be loaded from this file
+#' @import dplyr
 #' @export
-tally_state_summary <- function(tally_dir, out_file=NULL, verbose=FALSE){
-  require(dplyr)
+tally_state_summary <- function(tally_dir, verbose=FALSE, cache=TRUE){
+  cache_file <- file.path(tally_dir, "tallystate_summary.txt")
+
+  if (cache && file.exists(cache_file)) return(readr::read_tsv(cache_file))
 
   # Input files
   input_files <- CEMTscripts:::getfile_tallystate(tally_dir, state=NULL)
@@ -39,10 +44,10 @@ tally_state_summary <- function(tally_dir, out_file=NULL, verbose=FALSE){
     dat <-
       rbind(
         dat,
-        c(state=s, tally_state(input_file))
+        c(state=s, CEMTscripts:::tally_state(input_file))
       )
   }
 
-  if (!is.null(out_file)) readr::write_tsv(dat, out_file)
+  if (cache) readr::write_tsv(tbl_df(dat), cache_file)
   tbl_df(dat)
 }

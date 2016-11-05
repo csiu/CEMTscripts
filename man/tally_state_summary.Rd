@@ -4,15 +4,16 @@
 \alias{tally_state_summary}
 \title{Summarize overlaps for all states}
 \usage{
-tally_state_summary(tally_dir, out_file = NULL, verbose = FALSE)
+tally_state_summary(tally_dir, verbose = FALSE, cache = TRUE)
 }
 \arguments{
 \item{tally_dir}{directory containing the state files}
 
-\item{out_file}{when the output filename is specified,
-the output will be saved to this file}
-
 \item{verbose}{boolean; print messages?}
+
+\item{cache}{boolean; If TRUE, results will be saved to
+\code{tally_dir}/tallystate_summary.txt &/or
+data will be loaded from this file}
 }
 \description{
 In a given state, tally the number of bins which overlap.
