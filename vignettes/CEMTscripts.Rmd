@@ -71,4 +71,6 @@ export(transcript_togene)
 export(transcript_abundance)
 export(transcript_abundance_viz)
 
+export(ta_ngenes2proportion)
+export(ta_proportion2ngenes)
 ```

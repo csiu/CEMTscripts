@@ -44,10 +44,10 @@ transcript_abundance <- function(txi_df, expr_column){
 #'
 #' Use a dot plot to plot the transcript abundance
 #' @param transcriptabundance output of \code{transcript_abundance}
-#' @param ngenes integer; how many top hits to plot?
+#' @param ngenes integer; how many top expr genes to plot?
 #' @import ggplot2
 #' @export
-transcript_abundance_viz <- function(transcriptabundance, ngenes=10000) {
+transcript_abundance_viz <- function(transcriptabundance, ngenes=10000){
   transcriptabundance %>%
     head(ngenes) %>%
     ggplot(aes(x=count, y=proportion)) +
@@ -60,3 +60,60 @@ transcript_abundance_viz <- function(transcriptabundance, ngenes=10000) {
       )
 }
 
+#  ------------------------------------------------------------------------
+#' Return the list of top genes
+#' @param transcriptabundance output of \code{transcript_abundance}
+#' @param ngenes integer; how many top expr genes?
+ta_getgenes <- function(transcriptabundance, ngenes){
+  transcriptabundance %>%
+    filter(count <= ngenes) %>%
+    {.$gene_id} %>%
+    as.character()
+}
+
+#  ------------------------------------------------------------------------
+#' Proportion of expressed transcripts that make up the top ngenes
+#' @param transcriptabundance output of \code{transcript_abundance}
+#' @param ngenes integer; how many top expr genes?
+#' @param getgenes
+#'          boolean; if TRUE, will instead return the list of top ngenes
+#' @export
+ta_ngenes2proportion <- function(transcriptabundance, ngenes,
+                                 getgenes=FALSE){
+  if (getgenes){
+    ## the genes
+    CEMTscripts:::ta_getgenes(transcriptabundance, ngenes)
+  } else {
+    ## the proportion
+    transcriptabundance %>%
+      filter(count == ngenes) %>%
+      {.$proportion}
+  }
+}
+
+#  ------------------------------------------------------------------------
+#' Number of genes which make up a proportion of expressed transcript
+#' @param transcriptabundance output of \code{transcript_abundance}
+#' @param p proportion. Value should be between 0 - 1.
+#' @param gt boolean. If FALSE (default), the function will return the
+#'           number of genes equal to or below the specified proportion.
+#'           If TRUE, the function will return +1 gene which makes
+#'           the proportion slightly larger than the specified value
+#' @param getgenes
+#'          boolean; if TRUE, will instead return the list of top ngenes
+#' @export
+ta_proportion2ngenes <- function(transcriptabundance, p, gt=FALSE,
+                                 getgenes=FALSE){
+  the_ngenes <-
+    transcriptabundance %>%
+    filter(proportion <= p) %>%
+    {.$count} %>%
+    tail(1)
+  if (gt) the_ngenes<-the_ngenes+1
+
+  if (getgenes) {
+    CEMTscripts:::ta_getgenes(transcriptabundance, the_ngenes)
+  } else {
+    the_ngenes
+  }
+}

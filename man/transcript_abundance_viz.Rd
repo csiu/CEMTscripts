@@ -9,7 +9,7 @@ transcript_abundance_viz(transcriptabundance, ngenes = 10000)
 \arguments{
 \item{transcriptabundance}{output of \code{transcript_abundance}}
 
-\item{ngenes}{integer; how many top hits to plot?}
+\item{ngenes}{integer; how many top expr genes to plot?}
 }
 \description{
 Use a dot plot to plot the transcript abundance
