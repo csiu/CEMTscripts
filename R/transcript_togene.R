@@ -39,10 +39,15 @@ transcript_tximport <- function(files, ...){
 transcript_togene <- function(files, file_ids=NULL){
   txi <- CEMTscripts:::transcript_tximport(files)
 
-  ## Add column name
+  ## Add column name & clean up data frame
   if (is.null(file_ids)) file_ids<-basename(dirname(files))
-  for (i in c("abundance", "counts", "length"))
+  for (i in c("abundance", "counts", "length")) {
     colnames(txi[[i]]) <- file_ids
-
+    txi[[i]] <-
+      txi[[i]] %>%
+      as.data.frame() %>%
+      tbl_df() %>%
+      tibble::rownames_to_column("gene_id")
+  }
   txi
 }
