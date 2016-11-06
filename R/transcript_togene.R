@@ -35,6 +35,19 @@ transcript_tximport <- function(files, ...){
 #' @param file_ids
 #'          a character vector of ids in the same order as \code{files}.
 #'          By default, the directory name of the base file is used.
+#' @details
+#'   There are 5 columns in the Salmon quant file: name, length,
+#'   effective length, TPM, and number of reads.
+#'
+#'   tximport outputs 3 matrices:
+#'   \itemize{
+#'     \item{\code{abundance}}{
+#'     sum of transcript TPMs for a given gene}
+#'     \item{\code{counts}}{
+#'     sum of transcript read counts for a given gene}
+#'     \item{\code{length}}{
+#'     TPM weighted average of transcripts for a given gene}
+#'   }
 #' @export
 transcript_togene <- function(files, file_ids=NULL){
   txi <- CEMTscripts:::transcript_tximport(files)

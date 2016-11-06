@@ -17,4 +17,18 @@ By default, the directory name of the base file is used.}
 Uses tximport to map Salmon transcripts to genes.
 Column names/sample ids are added at this step.
 }
+\details{
+There are 5 columns in the Salmon quant file: name, length,
+  effective length, TPM, and number of reads.
+
+  tximport outputs 3 matrices:
+  \itemize{
+    \item{\code{abundance}}{
+    sum of transcript TPMs for a given gene}
+    \item{\code{counts}}{
+    sum of transcript read counts for a given gene}
+    \item{\code{length}}{
+    TPM weighted average of transcripts for a given gene}
+  }
+}
 
