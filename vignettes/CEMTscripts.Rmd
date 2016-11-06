@@ -61,3 +61,14 @@ Converting from regions to genes
 export(regions_addgenes)
 export(regions_togenes)
 ```
+
+## Transcript
+
+Convert salmon transcript to gene levels using tximport
+```
+export(transcript_togene)
+
+export(transcript_abundance)
+export(transcript_abundance_viz)
+
+```
