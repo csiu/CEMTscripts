@@ -1,3 +1,14 @@
+#' Total unique elements in embedded list
+#' @param x a list whereby each element is a character vector/set and
+#'          the name of the element is the name of the set
+#' @param getunique boolean; if TRUE, will instead return the
+#'                  list of unique elements
+set_total <- function(x, getunique=FALSE) {
+  elements <- Reduce(union, x)
+  if (getunique) elements else length(elements)
+}
+
+#  ------------------------------------------------------------------------
 #' Plot sets
 #'
 #' @param x a list whereby each element is a character vector/set and
