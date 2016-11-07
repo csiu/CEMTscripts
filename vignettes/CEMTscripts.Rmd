@@ -76,3 +76,9 @@ export(ta_auc)
 export(ta_ngenes2proportion)
 export(ta_proportion2ngenes)
 ```
+
+## Plotting
+
+```
+export(plot_sets)
+```
