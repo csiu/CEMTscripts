@@ -34,6 +34,12 @@ export(chromhmm_orderstates)
 export(chromhmm_makestateorderingfile)
 ```
 
+## Loading
+
+```
+export(load_macs2_narrowpeak)
+```
+
 ## Evaluating
 Distance between sample segmentations
 ```
@@ -60,6 +66,11 @@ Converting from regions to genes
 ```
 export(regions_addgenes)
 export(regions_togenes)
+```
+
+Separate column by each character
+```
+export(sep_colbychar)
 ```
 
 ## Transcript
