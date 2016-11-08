@@ -93,3 +93,7 @@ export(ta_proportion2ngenes)
 ```
 export(plot_sets)
 ```
+
+```
+export(makeExpression_fromLabelcol)
+```
