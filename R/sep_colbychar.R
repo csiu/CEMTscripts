@@ -21,6 +21,8 @@ sep_colbychar <- function(dat, column="label", column.names=NULL, keep=TRUE){
   mat <-
     do.call(rbind, strsplit(dat[[column]], ""))
   colnames(mat) <- column.names
+  mat <-
+    mutate_each(as.data.frame(mat), funs(as.character))
 
   output <- cbind(dat, mat)
   if (!keep) select_(output, paste0("-",column)) else output
