@@ -9,7 +9,8 @@ load_macs2_narrowpeak <- function(narrowPeak_file) {
                       "name", "score", "strand",
                       "fc", "nlogp", "nlogq", "relsummit"),
                     col_types = readr::cols(
-                      chr = readr::col_character()))
+                      chr = readr::col_character()),
+                    progress = FALSE)
   gr <-
     GenomicRanges::makeGRangesFromDataFrame(dat)
   GenomicRanges::mcols(gr) <-
