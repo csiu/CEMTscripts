@@ -8,7 +8,8 @@
 transcript_tx2gene <- function(){
   system.file("extdata", "grch37p13.tx2gene.tsv",
               package="CEMTscripts") %>%
-    readr::read_tsv(col_types = readr::cols(.default = "c"))
+    readr::read_tsv(col_types = readr::cols(.default = "c"),
+                    progress = FALSE)
 }
 
 #  ------------------------------------------------------------------------
@@ -18,10 +19,13 @@ transcript_tx2gene <- function(){
 #' @param files a character vector of filenames
 #'              for the transcript-level abundances
 transcript_tximport <- function(files, ...){
+  silent_readr <- function(...){
+    readr::read_tsv(..., progress=FALSE)
+  }
   tximport::tximport(files,
                      type = "salmon",
                      tx2gene = CEMTscripts:::transcript_tx2gene(),
-                     reader = readr::read_tsv,
+                     reader = silent_readr,
                      ...)
 }
 
