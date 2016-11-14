@@ -1,13 +1,22 @@
+#' Load ChromHMM enrichment file
+#' @param enrichment_file
+#'          Assumes the first column of the TSV is chromatin state
+#' @export
+chromhmm_loadenrichment <- function(enrichment_file) {
+  dat <- readr::read_tsv(enrichment_file, progress = FALSE)
+  colnames(dat)[1] <- "state"
+  dat  %>%
+    filter(state != "Base")
+}
+
+# -------------------------------------------------------------------------
 #' Pull out column(s) from ChromHMM overlap enrichment file
 #' @param enrichment_file
 #'   ChromHMM's enrichment overlap file
 #' @param col Column(s) to pull out
 chromhmm_getenrichmentcol <- function(enrichment_file, col) {
-  dat <- readr::read_tsv(enrichment_file)
-  dat <- dat[,c(colnames(dat)[1], col)]
-  colnames(dat)[1] <- "state"
-  dat  %>%
-    filter(state != "Base")
+  dat <- CEMTscripts:::chromhmm_loadenrichment(enrichment_file)
+  dat[,c(colnames(dat)[1], col)]
 }
 
 # -------------------------------------------------------------------------
