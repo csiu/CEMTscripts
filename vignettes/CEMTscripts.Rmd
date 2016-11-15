@@ -27,6 +27,7 @@ export(chromhmm_plt)
 export(chromhmm_gencov)
 
 export(chromhmm_loadenrichment)
+export(chromhmm_pltenrichment)
 
 export("%cor%")
 export(chromhmm_comparestates)
