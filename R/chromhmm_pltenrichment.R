@@ -11,8 +11,8 @@ chromhmm_pltenrichment <- function(input, ...){
     pheatmap::pheatmap(
       scale = "column",
       ## colors from: viridis::viridis(5, option="B")
-      color = colorRampPalette(
-        c("#000004FF", "#56106EFF", "#BB3754FF",
-          "#F98C0AFF", "#FCFFA4FF"))(100),
+      # color = colorRampPalette(
+      #   c("#000004FF", "#56106EFF", "#BB3754FF",
+      #     "#F98C0AFF", "#FCFFA4FF"))(100),
       ...)
 }
