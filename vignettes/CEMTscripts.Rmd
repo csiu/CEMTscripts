@@ -94,6 +94,7 @@ export(ta_proportion2ngenes)
 
 ```
 export(plot_sets)
+export(plot_combinematrix)
 ```
 
 ```
