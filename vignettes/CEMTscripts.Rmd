@@ -75,6 +75,12 @@ Separate column by each character
 export(sep_colbychar)
 ```
 
+Create a list of flanking & boundary regions
+```
+export(gr_createFlank)
+export(gr_createBoundary)
+```
+
 ## Transcript
 
 Convert salmon transcript to gene levels using tximport
