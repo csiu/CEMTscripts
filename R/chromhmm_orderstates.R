@@ -159,7 +159,7 @@ chromhmm_orderstates <- function(model){
   # - ZNF (need to look at enrichment overlap)
   states_txn <-
     setdiff(marks_in_state$H3K36me3,
-            c(states_tss, states_enh))
+            c(states_tss, states_enh, states_biv))
 
   ## Repressed states
   # - Heterochromatin
@@ -194,7 +194,7 @@ chromhmm_orderstates <- function(model){
 #' @export
 chromhmm_makestateorderingfile <- function(stateorder, filename=NULL){
   num_states <- length(stateorder)
-  d <- data.frame(old_state=1:num_states, new_state=stateorder)
+  d <- data.frame(old_state=stateorder, new_state=1:num_states)
   if (!is.null(filename)) readr::write_tsv(d, filename, col_names=F) else d
 }
 
