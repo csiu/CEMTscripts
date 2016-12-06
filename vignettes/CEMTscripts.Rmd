@@ -53,6 +53,11 @@ export(sample_concordance_viz)
 export(sample_concordance_vizH)
 ```
 
+Distance between state/mark decisiveness
+```
+export(state_decisiveness)
+```
+
 Similarity of a genomic feature between different models
 ```
 export(regions_binmatch)
