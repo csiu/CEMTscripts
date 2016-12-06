@@ -53,7 +53,7 @@ export(sample_concordance_viz)
 export(sample_concordance_vizH)
 ```
 
-Distance between state/mark decisiveness
+Decisiveness of state+mark emissions (want to minimize this value)
 ```
 export(state_decisiveness)
 ```
