@@ -49,7 +49,7 @@ plot_colorstrip <- function(d, p, statepalette){
 
   # Update plot grobs/new strips
   panels <- grepl(pattern="panel", g2$layout$name)
-  strips <- grepl(pattern="strip-top|strip_t", g2$layout$name)
+  strips <- grepl(pattern="strip-top|strip_t|strip-t", g2$layout$name)
   g2$layout$t[panels] <- g2$layout$t[panels] - 1
   g2$layout$b[panels] <- g2$layout$b[panels] - 1
   new_strips <- gtable_select(g2, panels | strips)
