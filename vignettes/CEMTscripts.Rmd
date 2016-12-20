@@ -40,6 +40,7 @@ export(chromhmm_makestateorderingfile)
 
 ```
 export(load_macs2_narrowpeak)
+export(load_macs2_broadpeak)
 export(load_homer_knownresults)
 ```
 
