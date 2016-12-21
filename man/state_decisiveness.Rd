@@ -4,12 +4,18 @@
 \alias{state_decisiveness}
 \title{Calculate state decisiveness}
 \usage{
-state_decisiveness(filename.emissions)
+state_decisiveness(filename.emissions, genomic_coverage)
 }
 \arguments{
 \item{filename.emissions}{The ChromHMM model emissions file}
+
+\item{genomic_coverage}{list containing the genomic coverage of the states.
+Used to scale the states.}
 }
 \description{
 Calculate, based on state emissions, the average decisiveness of a model
+}
+\details{
+Want to minimize this value
 }
 

@@ -15,6 +15,7 @@ load_emissionsdb <- function(filename){
 #  ------------------------------------------------------------------------
 #' Calculate the decisiveness of 1 state
 #' @param state_emissions list of state emissions from histone modifications
+#' @details Want to minimize this value
 #' @examples
 #' state_emissions <- c(1, 0.5)
 #' decisiveness(state_emissions)
@@ -23,13 +24,18 @@ decisiveness <- function(state_emissions){
 }
 
 #  ------------------------------------------------------------------------
-#' Calculate the average decisiveness across multiple states
+#' Calculate the decisiveness of model
 #' @param emissions_probs matrix containing the state emssions
+#' @param genomic_coverage
+#'          list containing the genomic coverage of the states.
+#'          Used to scale the states.
+#'          By default, there is no scaling
 #' @examples
-#' emissions_probs <- rbind(c(1, 1), c(1,0))
-#' decisiveness_average(emissions_probs)
-decisiveness_average <- function(emissions_probs){
-  mean(apply(emissions_probs, 1, CEMTscripts:::decisiveness))
+#' emissions_probs <- rbind(c(1, 0.5), c(1,0))
+#' genomic_coverage <- c(.95, .05)
+#' decisiveness_model(emissions_probs, genomic_coverage)
+decisiveness_model <- function(emissions_probs, genomic_coverage=1){
+  sum(apply(emissions_probs, 1, CEMTscripts:::decisiveness) * genomic_coverage)
 }
 
 #  ------------------------------------------------------------------------
@@ -37,8 +43,12 @@ decisiveness_average <- function(emissions_probs){
 #'
 #' Calculate, based on state emissions, the average decisiveness of a model
 #' @param filename.emissions The ChromHMM model emissions file
+#' @param genomic_coverage
+#'          list containing the genomic coverage of the states.
+#'          Used to scale the states.
+#' @details Want to minimize this value
 #' @export
-state_decisiveness <- function(filename.emissions){
+state_decisiveness <- function(filename.emissions, genomic_coverage){
   ## Load emissions
   CEMTscripts:::load_emissionsdb(filename.emissions) %>%
 
@@ -49,5 +59,5 @@ state_decisiveness <- function(filename.emissions){
     tibble::column_to_rownames("state") %>%
 
     ## Calculate the average decisiveness across multiple states
-    CEMTscripts:::decisiveness_average()
+    CEMTscripts:::decisiveness_model(genomic_coverage)
 }

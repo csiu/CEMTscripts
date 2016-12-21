@@ -12,6 +12,9 @@ decisiveness(state_emissions)
 \description{
 Calculate the decisiveness of 1 state
 }
+\details{
+Want to minimize this value
+}
 \examples{
 state_emissions <- c(1, 0.5)
 decisiveness(state_emissions)
