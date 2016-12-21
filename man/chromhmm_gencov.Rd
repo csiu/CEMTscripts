@@ -4,7 +4,8 @@
 \alias{chromhmm_gencov}
 \title{Load ChromHMM genomic coverage}
 \usage{
-chromhmm_gencov(enrichment_file, gencov_col = "Genome \%")
+chromhmm_gencov(enrichment_file, gencov_col = "Genome \%",
+  isstateorder = FALSE)
 }
 \arguments{
 \item{enrichment_file}{Enrichment overlap file containing genomic coverage.
@@ -14,6 +15,8 @@ When more than 1 file is given, the average is computed}
 
 \item{gencov_col}{Name of genomic coverage column in the
 \code{enrichment_file}.}
+
+\item{isstateorder}{boolean; treat state as factor and order states?}
 }
 \description{
 Load ChromHMM genomic coverage and find the average genomic coverage

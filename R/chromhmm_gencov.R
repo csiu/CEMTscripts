@@ -32,9 +32,11 @@ chromhmm_getenrichmentcol <- function(enrichment_file, col) {
 #' @param gencov_col
 #'   Name of genomic coverage column in the
 #'   \code{enrichment_file}.
+#' @param isstateorder boolean; treat state as factor and order states?
 #' @import dplyr
 #' @export
-chromhmm_gencov <- function(enrichment_file, gencov_col="Genome %"){
+chromhmm_gencov <- function(enrichment_file, gencov_col="Genome %",
+                            isstateorder=FALSE){
   ## Load gencovs into list
   dats <- NULL
   for (f in enrichment_file){
@@ -45,9 +47,14 @@ chromhmm_gencov <- function(enrichment_file, gencov_col="Genome %"){
   dats <-
     Reduce(function(...){dplyr::left_join(..., by="state")}, dats)
   ## Compute average
-  dats %>%
+  dats <- dats %>%
     tidyr::gather(batch, gencov, -state) %>%
     group_by(state) %>%
     summarize(gencov = mean(gencov)) %>%
     ungroup()
+
+  if (isstateorder){
+    dats$state<-factor(dats$state, levels=1:nrow(dats))
+  }
+  arrange(dats, state)
 }
