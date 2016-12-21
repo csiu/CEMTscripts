@@ -16,9 +16,13 @@ By default, there is no scaling}
 \description{
 Calculate the decisiveness of model
 }
+\details{
+Calculated by \code{D = sum[k=1 to K]{d_k * c_k}};
+         want to minimize this value.
+}
 \examples{
 emissions_probs <- rbind(c(1, 0.5), c(1,0))
 genomic_coverage <- c(.95, .05)
-decisiveness_model(emissions_probs, genomic_coverage)
+CEMTscripts:::decisiveness_model(emissions_probs, genomic_coverage)
 }
 

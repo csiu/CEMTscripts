@@ -2,7 +2,7 @@
 #' @param filename The ChromHMM model emissions file
 #' @import dplyr
 # filename <- file.path(chromhmmdir, "LearnModel_ordered/model/emissions_14.txt")
-# (emissions_probs <- load_emissionsdb(filename))
+# (emissions_probs <- CEMTscripts:::load_emissionsdb(filename))
 load_emissionsdb <- function(filename){
   emissions_probs <- readr::read_tsv(filename, progress=FALSE)
   colnames(emissions_probs)[1] <- "state"
@@ -15,10 +15,10 @@ load_emissionsdb <- function(filename){
 #  ------------------------------------------------------------------------
 #' Calculate the decisiveness of 1 state
 #' @param state_emissions list of state emissions from histone modifications
-#' @details Want to minimize this value
-#' @examples
-#' state_emissions <- c(1, 0.5)
-#' decisiveness(state_emissions)
+#' @details Calculated by \code{d_k = sum[h=1 to H]{min(1-E_h, E_h)}}
+#'          want to minimize this value.
+# state_emissions <- c(0.25, 0.5)
+# CEMTscripts:::decisiveness(state_emissions)
 decisiveness <- function(state_emissions){
   sum(sapply(state_emissions, function(e){min(1-e, e)}))
 }
@@ -30,10 +30,12 @@ decisiveness <- function(state_emissions){
 #'          list containing the genomic coverage of the states.
 #'          Used to scale the states.
 #'          By default, there is no scaling
+#' @details Calculated by \code{D = sum[k=1 to K]{d_k * c_k}};
+#'          want to minimize this value.
 #' @examples
 #' emissions_probs <- rbind(c(1, 0.5), c(1,0))
 #' genomic_coverage <- c(.95, .05)
-#' decisiveness_model(emissions_probs, genomic_coverage)
+#' CEMTscripts:::decisiveness_model(emissions_probs, genomic_coverage)
 decisiveness_model <- function(emissions_probs, genomic_coverage=1){
   sum(apply(emissions_probs, 1, CEMTscripts:::decisiveness) * genomic_coverage)
 }
@@ -46,7 +48,9 @@ decisiveness_model <- function(emissions_probs, genomic_coverage=1){
 #' @param genomic_coverage
 #'          list containing the genomic coverage of the states.
 #'          Used to scale the states.
-#' @details Want to minimize this value
+#' @details Calculated by \code{D = sum[k=1 to K]{d_k * c_k}} where
+#'          \code{d_k = sum[h=1 to H]{min(1-E_h, E_h)}};
+#'          want to minimize this value.
 #' @export
 state_decisiveness <- function(filename.emissions, genomic_coverage){
   ## Load emissions

@@ -16,6 +16,8 @@ Used to scale the states.}
 Calculate, based on state emissions, the average decisiveness of a model
 }
 \details{
-Want to minimize this value
+Calculated by \code{D = sum[k=1 to K]{d_k * c_k}} where
+         \code{d_k = sum[h=1 to H]{min(1-E_h, E_h)}};
+         want to minimize this value.
 }
 

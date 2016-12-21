@@ -13,10 +13,7 @@ decisiveness(state_emissions)
 Calculate the decisiveness of 1 state
 }
 \details{
-Want to minimize this value
-}
-\examples{
-state_emissions <- c(1, 0.5)
-decisiveness(state_emissions)
+Calculated by \code{d_k = sum[h=1 to H]{min(1-E_h, E_h)}}
+         want to minimize this value.
 }
 
