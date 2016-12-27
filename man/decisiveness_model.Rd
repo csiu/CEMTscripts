@@ -4,7 +4,7 @@
 \alias{decisiveness_model}
 \title{Calculate the decisiveness of model}
 \usage{
-decisiveness_model(emissions_probs, genomic_coverage = 1)
+decisiveness_model(emissions_probs, genomic_coverage = 1, returntype = "")
 }
 \arguments{
 \item{emissions_probs}{matrix containing the state emssions}
@@ -12,6 +12,11 @@ decisiveness_model(emissions_probs, genomic_coverage = 1)
 \item{genomic_coverage}{list containing the genomic coverage of the states.
 Used to scale the states.
 By default, there is no scaling}
+
+\item{returntype}{specify what value is returned:
+"d_k" for vector of d_k;
+"dc_k" for scaled vector of d_k * genomic coverage;
+anything else (default) for the metric itself}
 }
 \description{
 Calculate the decisiveness of model

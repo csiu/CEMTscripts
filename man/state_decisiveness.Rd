@@ -4,13 +4,18 @@
 \alias{state_decisiveness}
 \title{Calculate state decisiveness}
 \usage{
-state_decisiveness(filename.emissions, genomic_coverage)
+state_decisiveness(filename.emissions, genomic_coverage, returntype = "")
 }
 \arguments{
 \item{filename.emissions}{The ChromHMM model emissions file}
 
 \item{genomic_coverage}{list containing the genomic coverage of the states.
 Used to scale the states.}
+
+\item{returntype}{specify what value is returned:
+"d_k" for vector of d_k;
+"dc_k" for scaled vector of d_k * genomic coverage;
+anything else (default) for the metric itself}
 }
 \description{
 Calculate, based on state emissions, the average decisiveness of a model
