@@ -55,9 +55,9 @@ export(sample_concordance_viz)
 export(sample_concordance_vizH)
 ```
 
-Decisiveness of state+mark emissions (want to minimize this value)
+Unsynchronization of state+mark emissions (want to minimize this value)
 ```
-export(state_decisiveness)
+export(unsynchronization_score)
 ```
 
 Similarity of a genomic feature between different models
