@@ -4,10 +4,13 @@
 \alias{unsynchronization_score}
 \title{Calculate model unsynchronization from chromhmm emissions file}
 \usage{
-unsynchronization_score(filename.emissions, returntotal = TRUE)
+unsynchronization_score(filename.emissions, usescale = TRUE,
+  returntotal = TRUE)
 }
 \arguments{
 \item{filename.emissions}{The ChromHMM model emissions file}
+
+\item{usescale}{boolean; use scale (1/k) terms in calculation?}
 
 \item{returntotal}{boolean; return the total value (TRUE) or
 the list of values making up the total (FALSE)}

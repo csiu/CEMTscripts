@@ -48,6 +48,8 @@ unsynchronization <- function(emissions_probs, scale=1, returntotal=TRUE){
 #'
 #' Calculate, based on state emissions, the unsynchronization of a model
 #' @param filename.emissions The ChromHMM model emissions file
+#' @param usescale
+#'          boolean; use scale (1/k) terms in calculation?
 #' @param returntotal
 #'          boolean; return the total value (TRUE) or
 #'          the list of values making up the total (FALSE)
@@ -56,7 +58,8 @@ unsynchronization <- function(emissions_probs, scale=1, returntotal=TRUE){
 #'          scale term. Note: want to choose a model which minimizes the
 #'          unsynchronization (D) term.
 #' @export
-unsynchronization_score <- function(filename.emissions, returntotal=TRUE){
+unsynchronization_score <- function(filename.emissions, usescale=TRUE,
+                                    returntotal=TRUE){
   emissions_probs <-
     ## Load emissions
     CEMTscripts:::load_emissionsdb(filename.emissions) %>%
@@ -68,6 +71,6 @@ unsynchronization_score <- function(filename.emissions, returntotal=TRUE){
     tibble::column_to_rownames("state")
 
   ## Calculate the unsynchronization of the model
-  k <- nrow(emissions_probs)
-  CEMTscripts:::unsynchronization(emissions_probs, scale=1/k, returntotal)
+  if (usescale) scale<-1/nrow(emissions_probs) else scale<-1
+  CEMTscripts:::unsynchronization(emissions_probs, scale, returntotal)
 }
