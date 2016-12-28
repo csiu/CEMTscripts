@@ -30,7 +30,7 @@
 #'   For use as \code{statepalette} in \code{tally_state_summary_viz()}
 #' @export
 statecolors_makepalette <- function(x){
-  s <- statecolors[x]
+  s <- CEMTscripts::statecolors[x]
   names(s) <- 1L:length(x)
   s
 }
