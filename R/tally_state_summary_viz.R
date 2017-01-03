@@ -14,12 +14,13 @@
 #' @param shape boolean; when this is TRUE, the bin counts are
 #'              rescaled to range 0-1 and the
 #'              \code{scale_y_log10} argument is not used
+#' @param plottheme argument to adjust ggplot theme
 #' @import dplyr
 #' @import ggplot2
 #' @export
 tally_state_summary_viz <- function(input, statepalette=NULL,
                                     facet_wrap=FALSE, scale_y_log10=FALSE,
-                                    shape=FALSE){
+                                    shape=FALSE, plottheme=NULL){
   dat <-
     input %>%
     dplyr::mutate(state = sub("^[UE]", "", state) %>% as.integer()) %>%
@@ -50,6 +51,7 @@ tally_state_summary_viz <- function(input, statepalette=NULL,
       ggplot(aes(x = samples, y = bins)) +
       geom_bar(stat = "identity")
   }
+  if (!is.null(plottheme)) plt <- plt + plottheme
   if (facet_wrap) {
     plt <- plt + facet_wrap(~state, scales = "free")
   } else {
