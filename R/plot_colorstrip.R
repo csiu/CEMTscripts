@@ -7,6 +7,7 @@
 #' @param p ggplot's base plot
 #' @param statepalette character list where each element is a color and
 #'                     the name of each element is a \code{state} level.
+#' @param side Where is the facet strip? One of "top" or "right".
 #' @export
 #' @examples
 #' library(ggplot2)
@@ -23,7 +24,7 @@
 #' statepalette <- c("red", "yellow", "blue")
 #' statepalette <- setNames(statepalette, levels(d$state))
 #' plot_colorstrip(d, p, statepalette)
-plot_colorstrip <- function(d, p, statepalette){
+plot_colorstrip <- function(d, p, statepalette, side="top"){
   # Create new strips of color (to be updated)
   dummy <- p
   dummy$layers <- NULL
@@ -49,9 +50,17 @@ plot_colorstrip <- function(d, p, statepalette){
 
   # Update plot grobs/new strips
   panels <- grepl(pattern="panel", g2$layout$name)
-  strips <- grepl(pattern="strip-top|strip_t|strip-t", g2$layout$name)
-  g2$layout$t[panels] <- g2$layout$t[panels] - 1
-  g2$layout$b[panels] <- g2$layout$b[panels] - 1
+  if (side=="top"){
+    strips <- grepl(pattern="strip-top|strip_t|strip-t", g2$layout$name)
+    g2$layout$t[panels] <- g2$layout$t[panels] - 1
+    g2$layout$b[panels] <- g2$layout$b[panels] - 1
+  } else if (side=="right") {
+    strips <- grepl(pattern="strip_r|strip-r", g2$layout$name)
+    g2$layout$l[panels] <- g2$layout$l[panels] + 1
+    g2$layout$r[panels] <- g2$layout$r[panels] + 1
+  } else {
+    stop("'side=' must be one of 'top' or 'right'")
+  }
   new_strips <- gtable_select(g2, panels | strips)
   if (!grepl("panel", new_strips$layout$name[1])) {
     new_strips$layout$z <- rev(new_strips$layout$z)

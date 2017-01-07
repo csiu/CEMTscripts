@@ -4,7 +4,7 @@
 \alias{plot_colorstrip}
 \title{Add color to ggplot's facet strip.background}
 \usage{
-plot_colorstrip(d, p, statepalette)
+plot_colorstrip(d, p, statepalette, side = "top")
 }
 \arguments{
 \item{d}{dataframe of the data used to create \code{p}.
@@ -16,6 +16,8 @@ and should be equal to the number of facets of \code{p}.}
 
 \item{statepalette}{character list where each element is a color and
 the name of each element is a \code{state} level.}
+
+\item{side}{Where is the facet strip? One of "top" or "right".}
 }
 \description{
 Add color to ggplot's facet strip.background
